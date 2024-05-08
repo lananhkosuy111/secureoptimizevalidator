@@ -1,21 +1,28 @@
-const combSort = (arr) => {
-  const shrinkFactor = 1.3;
-  let gap = arr.length;
-  let swapped = true;
-  while (gap > 1 || swapped) {
-    gap = Math.floor(gap / shrinkFactor);
-    if (gap < 1) {
-      gap = 1;
-    }
-    swapped = false;
-    let i = 0;
-    while (i + gap < arr.length) {
-      if (arr[i] > arr[i + gap]) {
-        [arr[i], arr[i + gap]] = [arr[i + gap], arr[i]];
-        swapped = true;
-      }
-      i++;
-    }
+function reorderList(head) {
+  if (!head || !head.next) return;
+  let slow = head;
+  let fast = head;
+  while (fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
   }
-  return arr;
-};
+  let prev = null;
+  let curr = slow.next;
+  slow.next = null;
+  while (curr) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  let first = head;
+  let second = prev;
+  while (second) {
+    const nextFirst = first.next;
+    const nextSecond = second.next;
+    first.next = second;
+    second.next = nextFirst;
+    first = nextFirst;
+    second = nextSecond;
+  }
+}
