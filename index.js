@@ -1,1 +1,2 @@
-const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const randomNumber = Math.floor(Math.random() * 100) + 1;
+console.log(randomNumber);
